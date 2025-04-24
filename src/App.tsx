@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { WealthChart } from './components/Chart';
 import { AccountList } from './components/AccountList';
 import { ProgressBar } from './components/ProgressBar';
-import { Account, INVESTMENT_GOAL, TOTAL_WEALTH_GOAL, RANK_TIERS, RankTier } from './types';
+import { Account, INVESTMENT_GOAL, TOTAL_WEALTH_GOAL } from './types';
 
 // Move initialAccounts outside the component
 const defaultAccounts: Account[] = [
@@ -35,7 +35,6 @@ function App() {
   }, [accounts]);
 
   const totalWealth = accounts.reduce((sum, account) => sum + account.amount, 0);
-  const currentTier = RANK_TIERS.find((tier: RankTier) => totalWealth >= tier.minAmount && totalWealth < tier.maxAmount);
 
   const investedAmount = accounts
     .filter(account => 
