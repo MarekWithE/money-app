@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { WealthChart } from './components/Chart';
 import { AccountList } from './components/AccountList';
 import { ProgressBar } from './components/ProgressBar';
-import { RankBadge } from './components/RankBadge';
 import { Account, INVESTMENT_GOAL, TOTAL_WEALTH_GOAL, RANK_TIERS, RankTier } from './types';
 
 // Move initialAccounts outside the component
@@ -29,7 +28,6 @@ function App() {
     const savedAccounts = localStorage.getItem('accounts');
     return savedAccounts ? JSON.parse(savedAccounts) : defaultAccounts;
   });
-  const [editingAccount, setEditingAccount] = useState<number | null>(null);
   
   // Save to localStorage whenever accounts change
   useEffect(() => {
@@ -38,7 +36,6 @@ function App() {
 
   const totalWealth = accounts.reduce((sum, account) => sum + account.amount, 0);
   const currentTier = RANK_TIERS.find((tier: RankTier) => totalWealth >= tier.minAmount && totalWealth < tier.maxAmount);
-  const progress = currentTier ? ((totalWealth - currentTier.minAmount) / (currentTier.maxAmount - currentTier.minAmount)) * 100 : 0;
 
   const investedAmount = accounts
     .filter(account => 
